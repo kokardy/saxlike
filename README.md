@@ -3,8 +3,9 @@ saxlike
 
 SAX(Simple API for XML)-like API for golang
 
-Handler implements:
 
+Handler implements:
+```go
 type MyHandler struct{
   depth int
 }
@@ -40,7 +41,11 @@ func (h *MyHandler) ProcInst(proc xml.ProcInst){
 func (h *MyHandler) Directive(dir xml.Directive){
   fmt.Println("directive", string(dir))
 }
+```
 
+Parse:
+
+```go
 source := `<html> <title>taitoru</title> <body>&lt;bodfdaDF</body> </html>`
 r := bytes.NewReader([]byte(source))
 handler := &MyHandler{}
@@ -48,4 +53,4 @@ parser := saxlike.NewParser(r, handler)
 parser.SetHTMLMode()
 parser.Parse()
 
-
+```
