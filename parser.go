@@ -71,7 +71,10 @@ func (p *Parser)Parse() (err error){
   p.handler.EndDocument()
 }
 
-func Parse(decoder *xml.Decoder, handler Handler) error{
+func Parse(decoder *xml.Decoder, handler Handler, htmlMode boolean) error{
   parser := &Parser{decoder, handler)
+  if htmlMode{
+  	parser.SetHTMLMode()
+  }
   return parser.Parse()
 }
