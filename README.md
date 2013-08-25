@@ -3,6 +3,7 @@ saxlike
 
 SAX(Simple API for XML)-like API for golang
 
+This is just alpha version.
 
 Handler implements:
 ```go
