@@ -26,6 +26,12 @@ func NewParser(reader io.Reader, handler Handler){
   return &Parser{decoder, handler}
 }
 
+func (p *Parser)SetHTMLMode(){
+  p.Strict = false
+	p.AutoClose = xml.HTMLAutoClose
+	p.Entity = xml.HTMLEntity
+}
+
 func (p *Parser)Parse() (err error){
   p.handler.StartDocument()
   
@@ -63,4 +69,9 @@ func (p *Parser)Parse() (err error){
   }
   
   p.handler.EndDocument()
+}
+
+func Parse(decoder *xml.Decoder, handler Handler) error{
+  parser := &Parser{decoder, handler)
+  return parser.Parse()
 }
