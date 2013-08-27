@@ -3,45 +3,54 @@ saxlike
 
 SAX(Simple API for XML)-like API for golang
 
-This is just alpha version.
+version 0.9beta
 
 Handler implements:
 ```go
-type MyHandler struct{
-  depth int
-}
+type CompleteHandler struct{}
 
-func (h *MyHandler) StartDocument(){
+func (h *CompleteHandler) StartDocument(){
   fmt.Println("doc start")
 }
 
-func (h *MyHandler) EndDocument(){
+func (h *CompleteHandler) EndDocument(){
   fmt.Println("doc end")
 }
 
-func (h *MyHandler) StartElement(element xml.StartElement){
+func (h *CompleteHandler) StartElement(element xml.StartElement){
   fmt.Println("start ",element.Name.Space, ":" , element.Name.Local)
 }
 
-func (h *MyHandler) EndElement(element xml.EndElement){
+func (h *CompleteHandler) EndElement(element xml.EndElement){
   fmt.Println("end", element.Name.Space, ":" , element.Name.Local)
 }
 
-func (h *MyHandler) Comment(comment xml.Comment){
+func (h *CompleteHandler) Comment(comment xml.Comment){
   fmt.Println("comment", string(comment))
 }
 
-func (h *MyHandler) CharData(char xml.CharData){
+func (h *CompleteHandler) CharData(char xml.CharData){
   fmt.Println("chardata", string(chardata))
 }
 
-func (h *MyHandler) ProcInst(proc xml.ProcInst){
+func (h *CompleteHandler) ProcInst(proc xml.ProcInst){
   fmt.Println("proc", proc)
 }
 
-func (h *MyHandler) Directive(dir xml.Directive){
+func (h *CompleteHandler) Directive(dir xml.Directive){
   fmt.Println("directive", string(dir))
 }
+
+//VoidHandler is a implemented Handler that do nothing.
+type PartialHandler stuct{
+  saxlike.VoidHandler
+}
+
+//You need not implement all methods.
+func (h *PartialHandler) StartElement(element xml.StartElement){
+  fmt.Println("start", element.Name.Space, ":", element.Name.Local)
+}
+
 ```
 
 Parse:
@@ -49,7 +58,7 @@ Parse:
 ```go
 source := `<html> <title>taitoru</title> <body>&lt;bodfdaDF</body> </html>`
 r := bytes.NewReader([]byte(source))
-handler := &MyHandler{}
+handler := &ParticalHandler{}
 parser := saxlike.NewParser(r, handler)
 parser.SetHTMLMode()
 parser.Parse()
