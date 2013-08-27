@@ -1,10 +1,10 @@
 package saxlike
 
 import (
+	"bytes"
 	"encoding/xml"
+	"log"
 	"testing"
-  "bytes"
-  "log"
 )
 
 type PartialHandler struct {

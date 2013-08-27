@@ -10,6 +10,7 @@ type Parser struct {
 	*xml.Decoder
 	handler Handler
 }
+
 //Create a New Parser
 func NewParser(reader io.Reader, handler Handler) *Parser {
 	decoder := xml.NewDecoder(reader)
@@ -67,7 +68,7 @@ func (p *Parser) Parse() (err error) {
 
 //Create a parser and parse
 func Parse(reader io.Reader, handler Handler, htmlMode bool) error {
-  decoder := xml.NewDecoder(reader)
+	decoder := xml.NewDecoder(reader)
 	parser := &Parser{decoder, handler}
 	if htmlMode {
 		parser.SetHTMLMode()
