@@ -3,8 +3,6 @@ saxlike
 
 SAX(Simple API for XML)-like API for golang
 
-version 0.9beta
-
 Handler implements:
 ```go
 type CompleteHandler struct{}
